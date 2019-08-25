@@ -11,7 +11,7 @@ public class Game extends Canvas implements Runnable{
     private static final long serialVersionUID = -7360988675525082953L;
     public static boolean pause=false;
    
-    public static final int WIDTH =1080, HEIGHT = (WIDTH /12*9);
+    public static int WIDTH =397, HEIGHT = 224;
     static PopupMenu Game;
     private Thread thread;
     private boolean running = false;
@@ -31,25 +31,25 @@ public class Game extends Canvas implements Runnable{
         Dead,
     };
     
-    public STATE gameState = STATE.Menu;
+    public STATE gameState = STATE.Intro;
     public static BufferedImage MapSprite,Cloud;
             
     public Game(){
         handler = new Handler();
         menu=new Menu(this,handler);
         this.addKeyListener(new KeyInput(handler,this));
-        this.addMouseListener(menu);
         
         AudioPlayer.load();
         
-        SFX.Menu_Theme();
+        SFX.Intro_Theme();
         
-        new Window(WIDTH, HEIGHT, "Game",this);
+        new Window("Game",this);
+        MousePos mouse = new MousePos(Window.GetFrame());
+        this.addMouseListener(mouse);
         BufferedImageLoader loader = new BufferedImageLoader();
         
         hud = new HUD();
         spawner = new Spawn(handler,hud);  
-        
     }
     
     
@@ -87,7 +87,6 @@ public class Game extends Canvas implements Runnable{
             if(running)
                 render();
                 frames++;
-                            
             if(System.currentTimeMillis() - timer > 1000) {
                 timer += 1000;
                 // System.out.println("FPS: "+ frames);
@@ -97,7 +96,7 @@ public class Game extends Canvas implements Runnable{
     }
     
     private void InputState() {
-        /*if (gameState == STATE.Menu) {
+        if (gameState == STATE.Menu) {
             KeyInput.State[0]=true;
         }else KeyInput.State[0]=false;
         if (gameState == STATE.Game) {
@@ -111,7 +110,7 @@ public class Game extends Canvas implements Runnable{
         }else KeyInput.State[3]=false;
         if (gameState == STATE.Pause) {
             KeyInput.State[4]=true;
-        }else KeyInput.State[4]=false;*/
+        }else KeyInput.State[4]=false;
     }
     
     private void tick() {        
@@ -145,10 +144,10 @@ public class Game extends Canvas implements Runnable{
             gameState = STATE.Dead;
         }
         
-        if(gameState==STATE.Menu || gameState == STATE.Help){
+        if(gameState == STATE.Intro || gameState==STATE.Menu || gameState == STATE.Help){
             handler.tick();
             menu.tick();
-        }else if(gameState==STATE.Dead){
+        }else if(gameState==STATE.Dead || gameState == STATE.Pause){
             menu.tick();
         }
         
@@ -169,7 +168,7 @@ public class Game extends Canvas implements Runnable{
         
         if (gameState == STATE.Game){
             hud.render(g);
-        }else if(gameState==STATE.Menu || gameState==STATE.Help || gameState==gameState.Dead || gameState==gameState.Pause){
+        }else if(gameState==STATE.Intro || gameState==STATE.Menu || gameState==STATE.Help || gameState==STATE.Dead || gameState==STATE.Pause){
             menu.render(g);
         }
         g.dispose();
@@ -187,6 +186,5 @@ public class Game extends Canvas implements Runnable{
     
     public static void main(String[] args) {
         new Game();
-    }  
-
+    }
 }

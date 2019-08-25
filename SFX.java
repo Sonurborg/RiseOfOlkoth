@@ -20,7 +20,7 @@ public class SFX {
         }
     }
     public static void MOnOff() {
-        /*if (Mstate) {
+        if (Mstate) {
             Mstate=false;
         }else {
         if (Mstate==false) 
@@ -28,18 +28,21 @@ public class SFX {
         }
         if (Mstate) {
             if (b==0) {
-                AudioPlayer.getMusic("Battle_Music").loop();
+                AudioPlayer.getMusic("Boss2").loop();
             }
             if (b==1) {
-                AudioPlayer.getMusic("Menu_Theme").loop();
+                AudioPlayer.getMusic("Battle_Music").loop();
             }
             if (b==2) {
-                AudioPlayer.getMusic("Game_Over").play();
+                AudioPlayer.getMusic("Menu_Theme").loop();
             }
             if (b==3) {
-                AudioPlayer.getMusic("Boss1").loop();
+                AudioPlayer.getMusic("Game_Over").play();
             }
             if (b==4) {
+                AudioPlayer.getMusic("Boss1").loop();
+            }
+            if (b==5) {
                 AudioPlayer.getMusic("Boss2").loop();
             }
         }
@@ -49,39 +52,46 @@ public class SFX {
             AudioPlayer.getMusic("Game_Over").stop();
             AudioPlayer.getMusic("Boss1").stop();
             AudioPlayer.getMusic("Boss2").stop();
-        }*/
+        }
+    }
+    
+    public static void Intro_Theme() {
+        b=0;
+        if (Mstate) {
+            AudioPlayer.getMusic("Battle_Music").loop();
+        }
     }
     
     public static void Battle_Theme() {
-        b=0;
+        b=1;
         if (Mstate) {
             //AudioPlayer.getMusic("Battle_Music").loop();
         }
     }
     
     public static  void Menu_Theme() {
-        b=1;
+        b=2;
         if (Mstate) {
             //AudioPlayer.getMusic("Menu_Theme").loop();
         }
     }
     
     public static void Game_Over() {
-        b=2;
+        b=3;
         if (Mstate) {
             //AudioPlayer.getMusic("Game_Over").play();
         }
     }
     
     public static void Boss1() {
-        b=3;
+        b=4;
         if (Mstate) {
             //AudioPlayer.getMusic("Boss1").loop();
         }
     }
     
     public static void Boss2() {
-        b=4;
+        b=5;
         if (Mstate) {
             //AudioPlayer.getMusic("Boss2").loop();
         }

@@ -16,7 +16,7 @@ public class AudioPlayer {
             soundMap.put("Menu_Sound",new Sound ("res/Select.wav"));
             
             musicMap.put("Battle_Music",new Music("Res/Battle_Theme.wav"));
-             
+            
         } catch (SlickException e) {
             e.printStackTrace();
         }
@@ -24,8 +24,7 @@ public class AudioPlayer {
     }
     
     public static Music getMusic(String key) {
-        return musicMap.get(key);
-        
+        return musicMap.get(key); 
     }
     
     public static Sound getSound(String key) {

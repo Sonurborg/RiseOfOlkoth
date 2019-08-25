@@ -27,7 +27,7 @@ public class KeyInput extends KeyAdapter {
                 if (Menu.Click[0]) {
                     Menu.Click[0]=false;
                 }
-                return n; 
+                return n;
             }else {
                 if (Menu.Click[0]) {
                     Menu.Click[0]=false;
@@ -145,8 +145,6 @@ public class KeyInput extends KeyAdapter {
                     if (key ==  KeyEvent.VK_S || key ==  KeyEvent.VK_DOWN) tempObject.setVely(10);
                     if (key ==  KeyEvent.VK_A || key ==  KeyEvent.VK_LEFT) tempObject.setVelx(-10);
                     if (key ==  KeyEvent.VK_D || key ==  KeyEvent.VK_RIGHT) tempObject.setVelx(10);
-                    if (key ==  KeyEvent.VK_F || key ==  KeyEvent.VK_ALT) {
-                    }
                     if (key ==  KeyEvent.VK_SPACE) {
                         shut=true;
                     }
@@ -284,19 +282,19 @@ public class KeyInput extends KeyAdapter {
         if (State[3]) {
             hold++;
             if (hold>2) {
-            if (key ==  KeyEvent.VK_SPACE || key ==  KeyEvent.VK_ENTER) {
-                if (Menu.Click[4]) {
-                    SFX.Menu();
-                    HUD.HEALTH=1024;
-                    Click[4]=false;
-                    HUD.score=0;
-                    HUD.SHIELD=0;
-                    HUD.level=1;
-                    Handler.type=0;
-                    Handler.Ulti=0;
-                    game.gameState= STATE.Menu;
-                }else Click[4]=true;
-            }
+                if (key ==  KeyEvent.VK_SPACE || key ==  KeyEvent.VK_ENTER) {
+                    if (Menu.Click[4]) {
+                        SFX.Menu();
+                        HUD.HEALTH=1024;
+                        Click[4]=false;
+                        HUD.score=0;
+                        HUD.SHIELD=0;
+                        HUD.level=1;
+                        Handler.type=0;
+                        Handler.Ulti=0;
+                        game.gameState= STATE.Menu;
+                    }else Click[4]=true;
+                }
             }
         }
         
@@ -310,7 +308,6 @@ public class KeyInput extends KeyAdapter {
                     if (key ==  KeyEvent.VK_S || key ==  KeyEvent.VK_DOWN) tempObject.setVely(0);
                     if (key ==  KeyEvent.VK_A || key ==  KeyEvent.VK_LEFT) tempObject.setVelx(0);
                     if (key ==  KeyEvent.VK_D || key ==  KeyEvent.VK_RIGHT) tempObject.setVelx(0);
-                    
                 }
             }
             if (key ==  KeyEvent.VK_SPACE)shut=false;
