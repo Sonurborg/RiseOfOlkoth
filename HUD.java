@@ -40,7 +40,7 @@ public class HUD {
         if (HEALTH<400) {
             danger ++;
             if (danger > 30) {
-                SFX.LowHealth();
+                SFX.lowHealth();
                 danger = 0;
             }
         }
@@ -64,8 +64,7 @@ public class HUD {
     private void renderBox() {
         Spawn.Render=true;
     }
-    
-    
+        
     public void render(Graphics g){
         if (BhDisplay) {
             g.setColor(Color.white);
@@ -126,7 +125,6 @@ public class HUD {
         }
 
     }
-    
     
     public void score(int score){
         this.score=score;

@@ -26,7 +26,7 @@ public class Spawn {
             levelScore=150;
         }
         if (HUD.HEALTH==0){
-            SFX.Game_Over();
+            SFX.gameOver();
             scoreKeep=0;
             play=1;
             return;

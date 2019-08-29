@@ -6,12 +6,14 @@ public class SFX {
     private static Random r = new Random();
     private static int a;
     private static int b;
-    private  static boolean state=true;
-    private  static boolean Mstate=true;
+    private static boolean intro=true;
+    private static int counter=0;
+    private static boolean state=true;
+    private static boolean Mstate=true;
     private static boolean pause=false;
     private static boolean dead=false;
     
-    public static void OnOff() {
+    public static void onOff() {
         if (state) {
             state=false;
         } else {
@@ -19,7 +21,7 @@ public class SFX {
                 state=true;
         }
     }
-    public static void MOnOff() {
+    public static void mOnOff() {
         if (Mstate) {
             Mstate=false;
         }else {
@@ -34,7 +36,7 @@ public class SFX {
                 AudioPlayer.getMusic("Battle_Music").loop();
             }
             if (b==2) {
-                AudioPlayer.getMusic("Menu_Theme").loop();
+                AudioPlayer.getMusic("Menu").loop();
             }
             if (b==3) {
                 AudioPlayer.getMusic("Game_Over").play();
@@ -47,89 +49,101 @@ public class SFX {
             }
         }
         if (Mstate==false) {
-            AudioPlayer.getMusic("Battle_Music").stop();
-            AudioPlayer.getMusic("Menu_Theme").stop();
-            AudioPlayer.getMusic("Game_Over").stop();
-            AudioPlayer.getMusic("Boss1").stop();
-            AudioPlayer.getMusic("Boss2").stop();
+            AudioPlayer.getMusic("Intro").stop();
+            //AudioPlayer.getMusic("Battle_Music").stop();
+            AudioPlayer.getMusic("Menu").stop();
+            //AudioPlayer.getMusic("Game_Over").stop();
+            //AudioPlayer.getMusic("Boss1").stop();
+            //AudioPlayer.getMusic("Boss2").stop();
         }
     }
     
-    public static void Intro_Theme() {
-        b=0;
-        if (Mstate) {
-            AudioPlayer.getMusic("Battle_Music").loop();
+    public static void tick() {
+        if (intro) introLoop();
+    }
+    
+    public static void introLoop() {
+        counter++;
+        if (counter > 2290 && KeyInput.State[1]==false) {
+            menuTheme();
+            intro=false;
         }
     }
     
-    public static void Battle_Theme() {
+    public static void introTheme() {
+        b=2;
+        AudioPlayer.getMusic("Intro").play();
+        intro=true;
+    }
+    
+    public static void battleTheme() {
         b=1;
         if (Mstate) {
             //AudioPlayer.getMusic("Battle_Music").loop();
         }
     }
     
-    public static  void Menu_Theme() {
+    public static  void menuTheme() {
         b=2;
         if (Mstate) {
-            //AudioPlayer.getMusic("Menu_Theme").loop();
+            AudioPlayer.getMusic("Menu").loop();
         }
     }
     
-    public static void Game_Over() {
+    public static void gameOver() {
         b=3;
         if (Mstate) {
             //AudioPlayer.getMusic("Game_Over").play();
         }
     }
     
-    public static void Boss1() {
+    public static void boss1() {
         b=4;
         if (Mstate) {
             //AudioPlayer.getMusic("Boss1").loop();
         }
     }
     
-    public static void Boss2() {
+    public static void boss2() {
         b=5;
         if (Mstate) {
             //AudioPlayer.getMusic("Boss2").loop();
         }
     }
     
-    public static void Pause() {
+    public static void pause() {
         if (state) {
-            /*if (pause == false) {
+            if (pause == false) {
                 AudioPlayer.getSound("PauseOn").play();
                 pause=true;
             }else
             if (pause) {
                 AudioPlayer.getSound("PauseOff").play();
                 pause = false;
-            }*/
+            }
         }
     }
-    public static void Menu(){
+    public static void menu(){
         if (state) {
-            //AudioPlayer.getSound("Menu_Sound").play();
+            AudioPlayer.getSound("Menu_Sound").play();
         }
     }
-    public static void MenuHover() {
+    public static void menuHover() {
         if (state) {
             //AudioPlayer.getSound("Menu_Hover");
         }
     }
-    public static void Ammo0() {
+    public static void ammo0() {
         if (state) {
             //AudioPlayer.getSound("Ammo0_1").play();
         }
     }
-    public static void Ammo1() {
+    public static void ammo1() {
         if (state) {
             //AudioPlayer.getSound("Ammo0_2").play();
         }
     }
-    public static void Ammo4() {
+    public static void ammo4() {
         if (state) {
             /*a = r.nextInt(3);
             if (a==0) {
@@ -143,7 +157,7 @@ public class SFX {
             }*/
         }
     }
-    public static void BallAmmo() {
+    public static void ballAmmo() {
         if (state) {
             /*a = r.nextInt(3);
             if (a==0) {
@@ -157,12 +171,12 @@ public class SFX {
             }*/
         }
     }
-    public static void Charge() {
+    public static void charge() {
         if (state) {
             //AudioPlayer.getSound("Charge").play();
         }
     }
-    public static void Aim() {
+    public static void aim() {
         if (state) {
             /*AudioPlayer.getSound("Aim").play();
             AudioPlayer.getSound("Aim").play();
@@ -170,7 +184,7 @@ public class SFX {
             AudioPlayer.getSound("Aim").play();*/
         }
     }
-    public static void Burst() {
+    public static void burst() {
         if (state) {
             /*a = r.nextInt(7);
             if (a==0) {
@@ -196,7 +210,7 @@ public class SFX {
             }*/
         }
     }
-    public static void AmmoGrab() {
+    public static void ammoGrab() {
         if (state) {
             /*AudioPlayer.getSound("AmmoGrab").play();
             AudioPlayer.getSound("AmmoGrab").play();
@@ -205,7 +219,7 @@ public class SFX {
             AudioPlayer.getSound("AmmoGrab").play();*/
         }
     }
-    public static void HealthUp() {
+    public static void healthUp() {
         if (state) {
             /*AudioPlayer.getSound("HealthUp").play();
             AudioPlayer.getSound("HealthUp").play();
@@ -214,7 +228,7 @@ public class SFX {
             AudioPlayer.getSound("HealthUp").play();*/
         }
     }
-    public static void NoAmmo() {
+    public static void noAmmo() {
         if (state) {
             /*AudioPlayer.getSound("NoAmmo").play();
             AudioPlayer.getSound("NoAmmo").play();
@@ -226,7 +240,7 @@ public class SFX {
             AudioPlayer.getSound("NoAmmo").play();*/
         }
     }
-    public static void LowHealth() {
+    public static void lowHealth() {
         if (state) {
             /*AudioPlayer.getSound("LowHealth").play();
             AudioPlayer.getSound("LowHealth").play();
@@ -240,17 +254,17 @@ public class SFX {
             AudioPlayer.getSound("LowHealth").play();*/
         }
     }
-    public static void Rocket() {
+    public static void rocket() {
         if (state) {
             //AudioPlayer.getSound("Rocket").play();
         }
     }
-    public static void Buzz() {
+    public static void buzz() {
         if (state) {
             //AudioPlayer.getSound("Buzz").play();
         }
     }
-    public static void Explosion() {
+    public static void explosion() {
         if (state) {
             /*a = r.nextInt(14);
             if (a==0) {
@@ -297,7 +311,7 @@ public class SFX {
             }*/
         }
     }
-    public static void Burnt() {
+    public static void burnt() {
         if (state) { 
             /*a = r.nextInt(2);
             if (a==0) {
@@ -308,7 +322,7 @@ public class SFX {
             }*/
        }
     }
-    public static void Cry() {
+    public static void cry() {
         if (state) {
             /*a = r.nextInt(5);
             if (a==0) {

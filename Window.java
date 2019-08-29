@@ -23,23 +23,38 @@ public class Window extends Canvas{
         frame.setLocationRelativeTo(null);
         frame.add(game);
         frame.setVisible(true);
+        
+        frame.setMaximumSize(new Dimension(Game.WIDTH,Game.HEIGHT));
+        frame.setMinimumSize(new Dimension(397,224));
+        
         game.start();
+        
     }
     
     public static JFrame GetFrame() {
         return frame;
     }
     
-    public static void Fullscreen() {
-        frame.setPreferredSize(new Dimension(Game.WIDTH,Game.HEIGHT));
+    public static void fullscreen() {
+        frame.setVisible(false);
+        frame.dispose();     
+        frame.setSize(Toolkit.getDefaultToolkit().getScreenSize());
+        Game.WIDTH=frame.getWidth();
+        Game.HEIGHT=frame.getHeight();
+        frame.setLocationRelativeTo(frame);
         frame.setUndecorated(true);
         frame.setVisible(true);
     }
     
-    public static void Windowed() {
-        frame.setPreferredSize(new Dimension(Game.WIDTH,Game.HEIGHT));
-        frame.setMaximumSize(new Dimension(Game.WIDTH,Game.HEIGHT));
-        frame.setMinimumSize(new Dimension(397,224));
-        frame.setResizable(true);
+    public static void windowed() {
+        frame.setVisible(false);
+        frame.dispose();  
+        frame.setUndecorated(false);
+        //device.setFullScreenWindow(null);  
+        frame.setSize(2*(Game.WIDTH/3),2*(Game.HEIGHT/3)); 
+        Game.WIDTH=frame.getWidth();
+        Game.HEIGHT=frame.getHeight();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);        
     }
 }

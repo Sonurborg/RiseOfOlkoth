@@ -17,6 +17,7 @@ public class Game extends Canvas implements Runnable{
     private boolean running = false;
     private int counter=0;
     
+    private MousePos mouse;
     private Handler handler;
     private HUD hud;
     private Spawn spawner;
@@ -29,6 +30,9 @@ public class Game extends Canvas implements Runnable{
         Help,
         Game,
         Dead,
+        Options,
+        Map,
+        Save,
     };
     
     public STATE gameState = STATE.Intro;
@@ -36,22 +40,21 @@ public class Game extends Canvas implements Runnable{
             
     public Game(){
         handler = new Handler();
-        menu=new Menu(this,handler);
+        menu=new Menu(this,handler,mouse);
         this.addKeyListener(new KeyInput(handler,this));
         
         AudioPlayer.load();
         
-        SFX.Intro_Theme();
+        SFX.introTheme();
         
-        new Window("Game",this);
-        MousePos mouse = new MousePos(Window.GetFrame());
+        new Window("Rise Of Olkoth",this);
+        mouse = new MousePos(Window.GetFrame());
         this.addMouseListener(mouse);
         BufferedImageLoader loader = new BufferedImageLoader();
         
         hud = new HUD();
-        spawner = new Spawn(handler,hud);  
-    }
-    
+        spawner = new Spawn(handler,hud);
+    } 
     
     public synchronized void start(){
         thread = new Thread(this);
@@ -95,7 +98,7 @@ public class Game extends Canvas implements Runnable{
         } stop();
     }
     
-    private void InputState() {
+    private void inputState() {
         if (gameState == STATE.Menu) {
             KeyInput.State[0]=true;
         }else KeyInput.State[0]=false;
@@ -111,11 +114,22 @@ public class Game extends Canvas implements Runnable{
         if (gameState == STATE.Pause) {
             KeyInput.State[4]=true;
         }else KeyInput.State[4]=false;
+        if (gameState == STATE.Options) {
+            KeyInput.State[5]=true;
+        }else KeyInput.State[5]=false;
+        if (gameState == STATE.Map) {
+            KeyInput.State[6]=true;
+        }else KeyInput.State[6]=false;
+        if (gameState == STATE.Save) {
+            KeyInput.State[7]=true;
+        }else KeyInput.State[7]=false;
     }
     
-    private void tick() {        
+    private void tick() {
         
-        InputState();
+        mouse.mouseMoved();
+        SFX.tick();
+        inputState();
         KeyInput.tick();
         
         if (gameState==STATE.Game) {
@@ -145,9 +159,10 @@ public class Game extends Canvas implements Runnable{
         }
         
         if(gameState == STATE.Intro || gameState==STATE.Menu || gameState == STATE.Help){
-            handler.tick();
             menu.tick();
-        }else if(gameState==STATE.Dead || gameState == STATE.Pause){
+            handler.tick();
+        }else if(gameState==STATE.Dead || gameState == STATE.Pause || gameState==STATE.Save ||
+                gameState == STATE.Options || gameState == STATE.Map){
             menu.tick();
         }
         
@@ -168,7 +183,8 @@ public class Game extends Canvas implements Runnable{
         
         if (gameState == STATE.Game){
             hud.render(g);
-        }else if(gameState==STATE.Intro || gameState==STATE.Menu || gameState==STATE.Help || gameState==STATE.Dead || gameState==STATE.Pause){
+        }else if(gameState==STATE.Intro || gameState==STATE.Menu || gameState==STATE.Help || gameState==STATE.Save ||
+                gameState==STATE.Dead || gameState==STATE.Pause || gameState==STATE.Options || gameState == STATE.Map){
             menu.render(g);
         }
         g.dispose();

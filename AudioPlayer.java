@@ -13,9 +13,15 @@ public class AudioPlayer {
     public static void load() {
         
         try {
-            soundMap.put("Menu_Sound",new Sound ("res/Select.wav"));
+            soundMap.put("Menu_Sound",new Sound ("res/SFX/Select.wav"));
             
-            musicMap.put("Battle_Music",new Music("Res/Battle_Theme.wav"));
+            soundMap.put("PauseOn",new Sound ("res/SFX/Pause.wav"));
+            
+            soundMap.put("PauseOff",new Sound ("res/SFX/PauseOff.wav"));
+            
+            musicMap.put("Intro",new Music("Res/Songs/Intro.wav"));
+            
+            musicMap.put("Menu",new Music("Res/Songs/Menu.wav"));
             
         } catch (SlickException e) {
             e.printStackTrace();
